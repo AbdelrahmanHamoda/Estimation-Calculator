@@ -48,6 +48,7 @@ class MainApp(QMainWindow, UI_File):
         self.p4result.textChanged.connect(self.ui_update)
 
     def ui_update(self):
+        # risk and double risk
         if self.double_risk.isChecked():
             self.risk1.setText('D.Risk')
             self.risk1.setGeometry(170, 60, 41, 16)
@@ -66,7 +67,7 @@ class MainApp(QMainWindow, UI_File):
             self.risk3.setGeometry(710, 60, 31, 16)
             self.risk4.setText('Risk')
             self.risk4.setGeometry(710, 230, 31, 16)
-
+        # risk checked or not
         if self.risk_yes.isChecked() and self.p1risk.isChecked() and self.p1risk.isEnabled():
             self.risk1.setVisible(True)
         else:
@@ -83,7 +84,16 @@ class MainApp(QMainWindow, UI_File):
             self.risk4.setVisible(True)
         else:
             self.risk4.setVisible(False)
-
+        # with checked or not
+        if self.p1call.isChecked() and (not self.p1with.isEnabled()):
+            self.p1with.setChecked(False)
+        elif self.p2call.isChecked() and (not self.p2with.isEnabled()):
+            self.p2with.setChecked(False)
+        elif self.p3call.isChecked() and (not self.p3with.isEnabled()):
+            self.p3with.setChecked(False)
+        elif self.p4call.isChecked() and (not self.p4with.isEnabled()):
+            self.p4with.setChecked(False)
+        # calculate button control
         if self.p1edit.text() == '' or self.p2edit.text() == '' or self.p3edit.text() == '' or \
                 self.p4edit.text() == '' or self.p1result.text() == '' or self.p2result.text() == '' or \
                 self.p3result.text() == '' or self.p4result.text() == '':
