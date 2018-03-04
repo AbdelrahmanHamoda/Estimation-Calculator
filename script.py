@@ -7,6 +7,8 @@ UI_File, _ = loadUiType(os.path.join(os.path.dirname('__file__'), "Score Board.u
 
 
 class MainApp(QMainWindow, UI_File):
+    global p1,p2,p3,p4
+    p1, p2, p3, p4 = [], [], [], []
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
@@ -111,6 +113,7 @@ class MainApp(QMainWindow, UI_File):
         p3result = self.p3result.text()
         p4result = self.p4result.text()
         ls_sum_in = []
+
         # checking if input and result values are valid or not
         if not error_input(p1in):
             QMessageBox.warning(self, 'player1 error', 'input must be positive number or dc only')
@@ -218,22 +221,107 @@ class MainApp(QMainWindow, UI_File):
             QMessageBox.warning(self,'result 4 error', 'result must be an number not dc')
             self.p4result.setText('')
             return
+
         # make sure that total calls aren't = 13
         if sum(ls_sum_in) == 13:
             QMessageBox.warning(self,'Call error', 'total calls must be lower or greater than 13')
             return
-        else:
+        else: # determining game is over or under
             if sum(ls_sum_in) > 13:
                 over = True
                 under = False
             else:
                 over = False
                 under = True
+
+        call = max(ls_sum_in)
+        caller = []
+        ls_players = ['p1', 'p2', 'p3', 'p4']
+
+        for x, y in zip(ls_sum_in, ls_players):
+            if x == call:
+                caller.append(y)
+
+        for i in caller:
+            if self.p1call.isChecked() and i == 'p1':
+                p1.clear()
+                p2.clear()
+                p3.clear()
+                p4.clear()
+                print('call correct')
+                p1.append('call')
+
+            if self.p2call.isChecked() and i == 'p2':
+                p1.clear()
+                p2.clear()
+                p3.clear()
+                p4.clear()
+                print('call correct')
+                p2.append('call')
+
+            if self.p3call.isChecked() and i == 'p3':
+                p1.clear()
+                p2.clear()
+                p3.clear()
+                p4.clear()
+                print('call correct')
+                p3.append('call')
+
+            if self.p4call.isChecked() and i == 'p4':
+                p1.clear()
+                p2.clear()
+                p3.clear()
+                p4.clear()
+                print('call correct')
+                p4.append('call')
+
+            if p1==[] and p2==[] and p3==[] and p4==[]:
+                QMessageBox.warning(self,'call error','you just specified error caller')
+                break
+        print('before',p1, p2, p3, p4)
+        p1.clear()
+        p2.clear()
+        p3.clear()
+        p4.clear()
+        print('after',p1, p2, p3, p4)
+
+
+
+        # determining who are winners and losers
+        winners, losers = [], []
+        if win_lose(p1in, p1result):
+            winners.append('p1')
+        else:
+            losers.append('p1')
+        if win_lose(p2in, p2result):
+            winners.append('p2')
+        else:
+            losers.append('p2')
+        if win_lose(p3in, p3result):
+            winners.append('p3')
+        else:
+            losers.append('p3')
+        if win_lose(p4in, p4result):
+             winners.append('p4')
+        else:
+            losers.append('p4')
+
+            # only win or only lose
+            if only_win_lose(winners, losers):
+                if len(winners)<2 :
+                    print(winners[0],'asdsdas')
+                else:
+                    print(losers[0],'sdasas')
+            else:
+                print('not exist, asdasdasd')
+
             # calculation logic starts here
-            print(ls_sum_in)
-            print(over)
-            print(under)
-            print('good input')
+            #print(ls_sum_in)
+            #print(winners)
+            #print(losers)
+
+
+
 
     def clear(self):
         self.p1edit.setText('')
@@ -258,6 +346,22 @@ class MainApp(QMainWindow, UI_File):
         self.p2result.setText('')
         self.p3result.setText('')
         self.p4result.setText('')
+
+
+def only_win_lose(winners, losers):
+    if len(winners) == 1:
+        return True
+    elif len(losers) == 1:
+        return True
+    else:
+        return False
+
+
+def win_lose(inp, result):
+    if inp == result:
+        return True
+    else:
+        return False
 
 
 def result_dash_call(inp, result):
