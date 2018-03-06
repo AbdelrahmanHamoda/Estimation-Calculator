@@ -7,8 +7,6 @@ UI_File, _ = loadUiType(os.path.join(os.path.dirname('__file__'), "Score Board.u
 
 
 class MainApp(QMainWindow, UI_File):
-    global p1,p2,p3,p4
-    p1, p2, p3, p4 = [], [], [], []
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
@@ -113,7 +111,9 @@ class MainApp(QMainWindow, UI_File):
         p3result = self.p3result.text()
         p4result = self.p4result.text()
         ls_sum_in = []
-
+        caller = []
+        ls_players = ['p1', 'p2', 'p3', 'p4']
+        p1, p2, p3, p4 = [], [], [], []
         # checking if input and result values are valid or not
         if not error_input(p1in):
             QMessageBox.warning(self, 'player1 error', 'input must be positive number or dc only')
@@ -235,57 +235,37 @@ class MainApp(QMainWindow, UI_File):
                 under = True
 
         call = max(ls_sum_in)
-        caller = []
-        ls_players = ['p1', 'p2', 'p3', 'p4']
-
         for x, y in zip(ls_sum_in, ls_players):
             if x == call:
                 caller.append(y)
 
-        for i in caller:
-            if self.p1call.isChecked() and i == 'p1':
-                p1.clear()
-                p2.clear()
-                p3.clear()
-                p4.clear()
-                print('call correct')
-                p1.append('call')
+        if self.p1call.isChecked() and 'p1' in caller:
+            print('call correct')
+            p1.append('call')
+        elif self.p1call.isChecked():
+            QMessageBox.warning(self,'call error','this player is not allowed to get call')
+            return
 
-            if self.p2call.isChecked() and i == 'p2':
-                p1.clear()
-                p2.clear()
-                p3.clear()
-                p4.clear()
-                print('call correct')
-                p2.append('call')
+        if self.p2call.isChecked() and 'p2' in caller:
+            print('call correct')
+            p2.append('call')
+        elif self.p2call.isChecked():
+            QMessageBox.warning(self, 'call error', 'this player is not allowed to get call')
+            return
 
-            if self.p3call.isChecked() and i == 'p3':
-                p1.clear()
-                p2.clear()
-                p3.clear()
-                p4.clear()
-                print('call correct')
-                p3.append('call')
+        if self.p3call.isChecked() and 'p3' in caller:
+            print('call correct')
+            p3.append('call')
+        elif self.p3call.isChecked():
+            QMessageBox.warning(self, 'call error', 'this player is not allowed to get call')
+            return
 
-            if self.p4call.isChecked() and i == 'p4':
-                p1.clear()
-                p2.clear()
-                p3.clear()
-                p4.clear()
-                print('call correct')
-                p4.append('call')
-
-            if p1==[] and p2==[] and p3==[] and p4==[]:
-                QMessageBox.warning(self,'call error','you just specified error caller')
-                break
-        print('before',p1, p2, p3, p4)
-        p1.clear()
-        p2.clear()
-        p3.clear()
-        p4.clear()
-        print('after',p1, p2, p3, p4)
-
-
+        if self.p4call.isChecked() and 'p4' in caller:
+            print('call correct')
+            p4.append('call')
+        elif self.p4call.isChecked():
+            QMessageBox.warning(self, 'call error', 'this player is not allowed to get call')
+            return
 
         # determining who are winners and losers
         winners, losers = [], []
@@ -309,19 +289,36 @@ class MainApp(QMainWindow, UI_File):
             # only win or only lose
             if only_win_lose(winners, losers):
                 if len(winners)<2 :
-                    print(winners[0],'asdsdas')
+                    print(winners[0])
                 else:
-                    print(losers[0],'sdasas')
+                    print(losers[0])
             else:
-                print('not exist, asdasdasd')
-
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("No winners, multiplication needed, do you want to enable multiplication in the next round?")
+                msg.setWindowTitle("error")
+                msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+                retreval = msg.exec_()
+                if retreval == QMessageBox.Yes:
+                    self.Yes_bt()
+                else:
+                    self.No_bt()
             # calculation logic starts here
-            #print(ls_sum_in)
-            #print(winners)
-            #print(losers)
 
 
+            p1.clear()
+            p2.clear()
+            p3.clear()
+            p4.clear()
+            ls_sum_in.clear()
+            ls_players.clear()
+            self.multi_no.setChecked(False)
 
+    def Yes_bt(self):
+        self.multi_yes.setChecked(True)
+
+    def No_bt(self):
+        self.multi_no.setChecked(True)
 
     def clear(self):
         self.p1edit.setText('')
