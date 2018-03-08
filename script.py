@@ -1,9 +1,31 @@
 import os
 import sys
-from PyQt5.uic import loadUiType
+
 from PyQt5.QtWidgets import *
+from PyQt5.uic import loadUiType
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 UI_File, _ = loadUiType(os.path.join(os.path.dirname('__file__'), "Score Board.ui"))
+
+
+def clickable(widget):
+    class Filter(QObject):
+        clicked = pyqtSignal()
+
+        def eventFilter(self, obj, event):
+
+            if obj == widget:
+                if event.type() == QEvent.MouseButtonPress:
+                    if obj.rect().contains(event.pos()):
+                        self.clicked.emit()
+                        return True
+
+            return False
+
+    filter = Filter(widget)
+    widget.installEventFilter(filter)
+    return filter.clicked
 
 
 class MainApp(QMainWindow, UI_File):
@@ -14,8 +36,10 @@ class MainApp(QMainWindow, UI_File):
         self.ui()
         self.actions()
 
+
     def ui(self):
         self.setFixedSize(800, 514)
+        self.call1.setVisible(False)
         self.call2.setVisible(False)
         self.call3.setVisible(False)
         self.call4.setVisible(False)
@@ -27,6 +51,7 @@ class MainApp(QMainWindow, UI_File):
         self.risk2.setVisible(False)
         self.risk3.setVisible(False)
         self.risk4.setVisible(False)
+        self.p1edit.setFocus(True)
         self.multi_label.setVisible(False)
 
     def actions(self):
@@ -38,10 +63,6 @@ class MainApp(QMainWindow, UI_File):
         self.p2call.toggled.connect(self.ui_update)
         self.p3call.toggled.connect(self.ui_update)
         self.p4call.toggled.connect(self.ui_update)
-        self.p1call.toggled.connect(self.update)
-        self.p2call.toggled.connect(self.update)
-        self.p3call.toggled.connect(self.update)
-        self.p4call.toggled.connect(self.update)
         # self.double_risk.toggled.connect(self.ui_update)
         self.p1edit.textChanged.connect(self.ui_update)
         self.p2edit.textChanged.connect(self.ui_update)
@@ -52,97 +73,106 @@ class MainApp(QMainWindow, UI_File):
         self.p3result.textChanged.connect(self.ui_update)
         self.p4result.textChanged.connect(self.ui_update)
 
-    def update(self):
-        p1call = self.p1edit.text()
-        p2call = self.p2edit.text()
-        p3call, p3test = self.p3edit.text(), self.p3edit.text()
-        p4call = self.p4edit.text()
-        calls = []
+    def clear_1(self):
+        if self.p1edit.text() != '':
+            self.p1edit.clear()
 
-        try:
-            p1call = int(self.p1edit.text())
-            calls.append(p1call)
-        except:
-            print('1this is dc or not valid')
-        try:
-            p2call = int(self.p2edit.text())
-            calls.append(p2call)
-        except:
-            print('2this is dc or not valid')
-        try:
-            p3call = int(self.p3edit.text())
-            calls.append(p3call)
-        except:
-            print(p3test)
-            if p3test == 'dc':
-                p3test = 0
-                calls.append(p3test)
-                print(p3test)
-            else:
-                QMessageBox.warning(self, 'error', 'not valid value')
-                return
-            print('3this is dc or not valid')
-        try:
-            p4call = int(self.p4edit.text())
-            calls.append(p4call)
-        except:
-            print('4this is dc or not valid')
+    def clear_2(self):
+        if self.p2edit.text() != '':
+            self.p2edit.clear()
 
-        if self.p1call.isChecked():
-            if p1call == max(calls):
-                if p4call == 'dc':
-                    if p3call == 'dc':
-                        if p2call == 'dc':
-                            print('sbane5')
-                        else:
-                            # p2 test
-                            dif = abs(13 - p1call)
-                            print('difff', dif)
-                            print(p1call)
-                            print(p2call)
-                            print(p3call)
-                            print(p4call)
-                            if abs(dif - p2call == 2) or abs(dif - p2call == 3):
-                                print('1Risk')
-                            elif abs(dif - p2call == 1) or abs(dif - p2call == 0):
-                                print('1not risk')
-                            else:
-                                print('1D.Risk')
-                    else:
-                        # p3 test
-                        dif = abs(13 - (p1call + p2call))
-                        print('difff', dif)
-                        print(p1call)
-                        print(p2call)
-                        print(p3call)
-                        print(p4call)
-                        if abs(dif - p3call) == 3 or abs(dif - p3call) == 2:
-                            print('2Risk')
-                        elif abs(dif - p3call) == 1 or abs(dif - p3call) == 0:
-                            print('2no risk')
-                        else:
-                            print('2D.Risk')
-                else:
-                    # p4 test
-                    if type(p3test) == str:
-                        dif = abs(13 - (p1call + p3call + p2call))
-                    else:
-                        dif = abs(13 - (p1call + p3test + p2call))
-                    print('difff', dif)
-                    print(p1call)
-                    print(p2call)
-                    print(p3call)
-                    print(p4call)
-                    if abs(dif - p4call) == 3 or abs(dif - p4call) == 2:
-                        print('3Risk')
-                    elif abs(dif - p4call) == 1 or abs(dif - p4call) == 0:
-                        print('3not risk')
-                    else:
-                        print('3D.Risk')
+    def clear_3(self):
+        if self.p3edit.text() != '':
+            self.p3edit.clear()
+
+    def clear_4(self):
+        if self.p4edit.text() != '':
+            self.p4edit.clear()
+
+    def clear_11(self):
+        if self.p1result.text() != '':
+            self.p1result.clear()
+
+    def clear_12(self):
+        if self.p2result.text() != '':
+            self.p2result.clear()
+
+    def clear_13(self):
+        if self.p3result.text() != '':
+            self.p3result.clear()
+
+    def clear_14(self):
+        if self.p4result.text() != '':
+            self.p4result.clear()
 
     def ui_update(self):
-        # risk and double risk
+        if self.p1edit.text() != '':
+            self.p2edit.setEnabled(True)
+            clickable(self.p1edit).connect(self.clear_1)
+        else:
+            self.p2edit.setEnabled(False)
+            self.p1call.setAutoExclusive(False)
+            self.p1call.setChecked(False)
+            self.p2call.setAutoExclusive(False)
+            self.p2call.setChecked(False)
+            self.p3call.setAutoExclusive(False)
+            self.p3call.setChecked(False)
+            self.p4call.setAutoExclusive(False)
+            self.p4call.setChecked(False)
+
+        if self.p2edit.text() != '' and self.p2edit.isEnabled():
+            self.p3edit.setEnabled(True)
+            clickable(self.p2edit).connect(self.clear_2)
+        else:
+            self.p3edit.setEnabled(False)
+            self.p1call.setAutoExclusive(False)
+            self.p1call.setChecked(False)
+            self.p2call.setAutoExclusive(False)
+            self.p2call.setChecked(False)
+            self.p3call.setAutoExclusive(False)
+            self.p3call.setChecked(False)
+            self.p4call.setAutoExclusive(False)
+            self.p4call.setChecked(False)
+
+        if self.p3edit.text() != '' and self.p3edit.isEnabled():
+            self.p4edit.setEnabled(True)
+            clickable(self.p3edit).connect(self.clear_3)
+        else:
+            self.p4edit.setEnabled(False)
+            self.p1call.setAutoExclusive(False)
+            self.p1call.setChecked(False)
+            self.p2call.setAutoExclusive(False)
+            self.p2call.setChecked(False)
+            self.p3call.setAutoExclusive(False)
+            self.p3call.setChecked(False)
+            self.p4call.setAutoExclusive(False)
+            self.p4call.setChecked(False)
+
+        if self.p4edit.text() != '':
+            clickable(self.p4edit).connect(self.clear_4)
+        else:
+            self.p1call.setAutoExclusive(False)
+            self.p1call.setChecked(False)
+            self.p2call.setAutoExclusive(False)
+            self.p2call.setChecked(False)
+            self.p3call.setAutoExclusive(False)
+            self.p3call.setChecked(False)
+            self.p4call.setAutoExclusive(False)
+            self.p4call.setChecked(False)
+
+        if self.p1result.text() != '':
+            clickable(self.p1result).connect(self.clear_11)
+
+        if self.p2result.text() != '':
+            clickable(self.p2result).connect(self.clear_12)
+
+        if self.p3result.text() != '':
+            clickable(self.p3result).connect(self.clear_13)
+
+        if self.p4result.text() != '':
+            clickable(self.p4result).connect(self.clear_14)
         '''
+        # risk and double risk
         if self.double_risk.isChecked():
             self.risk1.setText('D.Risk')
             self.risk1.setGeometry(170, 60, 41, 16)

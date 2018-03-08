@@ -64,22 +64,6 @@
     <property name="title">
      <string>player 1</string>
     </property>
-    <widget class="QLineEdit" name="p1edit">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="maxLength">
-      <number>2</number>
-     </property>
-    </widget>
     <widget class="QLabel" name="p1sc">
      <property name="geometry">
       <rect>
@@ -135,6 +119,25 @@
       <string>Call</string>
      </property>
     </widget>
+    <widget class="QLineEdit" name="p1edit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="maxLength">
+      <number>2</number>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
@@ -149,6 +152,9 @@
      <string>player3</string>
     </property>
     <widget class="QLineEdit" name="p3edit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -230,6 +236,9 @@
      <string>player2</string>
     </property>
     <widget class="QLineEdit" name="p2edit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -237,6 +246,9 @@
        <width>91</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="maxLength">
       <number>2</number>
@@ -311,6 +323,9 @@
      <string>player4</string>
     </property>
     <widget class="QLineEdit" name="p4edit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -591,7 +606,7 @@
     </widget>
     <widget class="QCheckBox" name="p1with">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
