@@ -563,6 +563,9 @@
       <property name="text">
        <string>Call</string>
       </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
      </widget>
      <widget class="QRadioButton" name="p4call">
       <property name="geometry">
@@ -602,11 +605,14 @@
       <property name="text">
        <string>Call</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QCheckBox" name="p1with">
      <property name="enabled">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -621,6 +627,9 @@
      </property>
     </widget>
     <widget class="QCheckBox" name="p2with">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -634,6 +643,9 @@
      </property>
     </widget>
     <widget class="QCheckBox" name="p3with">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -647,6 +659,9 @@
      </property>
     </widget>
     <widget class="QCheckBox" name="p4with">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -1180,54 +1195,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>p2call</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p2with</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>373</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>523</x>
-     <y>131</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>p3call</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p3with</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>387</x>
-     <y>157</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>505</x>
-     <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>p4call</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p4with</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>370</x>
-     <y>197</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>521</x>
-     <y>186</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>multi_yes</sender>
    <signal>toggled(bool)</signal>
    <receiver>multi_label</receiver>
@@ -1250,28 +1217,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>407</x>
+     <x>388</x>
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>59</x>
-     <y>90</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>p1call</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p1with</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>407</x>
-     <y>101</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>504</x>
-     <y>100</y>
+     <x>67</x>
+     <y>94</y>
     </hint>
    </hints>
   </connection>
