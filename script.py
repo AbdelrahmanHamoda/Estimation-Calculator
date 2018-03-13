@@ -78,6 +78,158 @@ class MainApp(QMainWindow, UI_File):
         self.p3result.textChanged.connect(self.ui_update)
         self.p4result.textChanged.connect(self.ui_update)
 
+    def risk_update1(self):
+        self.risk1.setVisible(False)
+        self.risk2.setVisible(False)
+        self.risk3.setVisible(False)
+        self.risk4.setVisible(False)
+        # p4 risk logic by default
+        if self.p4edit.text() == 'd':
+            if self.p3edit.text() == 'd':
+                # p2 risk logic
+                if risk(p2c, p1c, p3c, p4c) == 1:
+                    self.risk2.setVisible(True)
+                    self.risk2.setText('Risk')
+                    self.risk2.setGeometry(170, 230, 31, 16)
+                elif risk(p2c, p1c, p3c, p4c) == 2:
+                    self.risk2.setVisible(True)
+                    self.risk2.setText('D.Risk')
+                    self.risk2.setGeometry(170, 230, 41, 16)
+            else:
+                # p3 risk logic
+                if risk(p3c, p1c, p2c, p4c) == 1:
+                    self.risk3.setVisible(True)
+                    self.risk3.setText('Risk')
+                    self.risk3.setGeometry(710, 60, 31, 16)
+                elif risk(p3c, p1c, p2c, p4c) == 2:
+                    self.risk3.setVisible(True)
+                    self.risk3.setText('D.Risk')
+                    self.risk3.setGeometry(710, 60, 41, 16)
+        else:
+            # p4 risk logic
+            if risk(p4c, p3c, p2c, p1c) == 1:
+                self.risk4.setVisible(True)
+                self.risk4.setText('Risk')
+                self.risk4.setGeometry(710, 230, 31, 16)
+            elif risk(p4c, p3c, p2c, p1c) == 2:
+                self.risk4.setVisible(True)
+                self.risk4.setText('D.Risk')
+                self.risk4.setGeometry(710, 230, 41, 16)
+
+    def risk_update2(self):
+        self.risk1.setVisible(False)
+        self.risk2.setVisible(False)
+        self.risk3.setVisible(False)
+        self.risk4.setVisible(False)
+        # p1 risk logic by default
+        if self.p1edit.text() == 'd':
+            if self.p4edit.text() == 'd':
+                # p3 risk logic
+                if risk(p3c, p1c, p2c, p4c) == 1:
+                    self.risk3.setVisible(True)
+                    self.risk3.setText('Risk')
+                    self.risk3.setGeometry(710, 60, 31, 16)
+                elif risk(p3c, p1c, p2c, p4c) == 2:
+                    self.risk3.setVisible(True)
+                    self.risk3.setText('D.Risk')
+                    self.risk3.setGeometry(710, 60, 41, 16)
+            else:
+                # p4 risk logic
+                if risk(p4c, p3c, p2c, p1c) == 1:
+                    self.risk4.setVisible(True)
+                    self.risk4.setText('Risk')
+                    self.risk4.setGeometry(710, 230, 31, 16)
+                elif risk(p4c, p3c, p2c, p1c) == 2:
+                    self.risk4.setVisible(True)
+                    self.risk4.setText('D.Risk')
+                    self.risk4.setGeometry(710, 230, 41, 16)
+        else:
+            # p1 risk logic
+            if risk(p1c, p2c, p3c, p4c) == 1:
+                self.risk1.setVisible(True)
+                self.risk1.setText('Risk')
+                self.risk1.setGeometry(170, 60, 31, 16)
+            elif risk(p1c, p2c, p3c, p4c) == 2:
+                self.risk1.setVisible(True)
+                self.risk1.setText('D.Risk')
+                self.risk1.setGeometry(170, 60, 41, 16)
+
+    def risk_update3(self):
+        self.risk1.setVisible(False)
+        self.risk2.setVisible(False)
+        self.risk3.setVisible(False)
+        self.risk4.setVisible(False)
+        # p2 risk logic by default
+        if self.p2edit.text() == 'd':
+            if self.p1edit.text() == 'd':
+                # p4 risk logic
+                if risk(p4c, p3c, p2c, p1c) == 1:
+                    self.risk4.setVisible(True)
+                    self.risk4.setText('Risk')
+                    self.risk4.setGeometry(710, 230, 31, 16)
+                elif risk(p4c, p3c, p2c, p1c) == 2:
+                    self.risk4.setVisible(True)
+                    self.risk4.setText('D.Risk')
+                    self.risk4.setGeometry(710, 230, 41, 16)
+            else:
+                # p1 risk logic
+                if risk(p1c, p2c, p3c, p4c) == 1:
+                    self.risk1.setVisible(True)
+                    self.risk1.setText('Risk')
+                    self.risk1.setGeometry(170, 60, 31, 16)
+                elif risk(p1c, p2c, p3c, p4c) == 2:
+                    self.risk1.setVisible(True)
+                    self.risk1.setText('D.Risk')
+                    self.risk1.setGeometry(170, 60, 41, 16)
+        else:
+            # p2 risk logic
+            if risk(p2c, p1c, p3c, p4c) == 1:
+                self.risk2.setVisible(True)
+                self.risk2.setText('Risk')
+                self.risk2.setGeometry(170, 230, 31, 16)
+            elif risk(p2c, p1c, p3c, p4c) == 2:
+                self.risk2.setVisible(True)
+                self.risk2.setText('D.Risk')
+                self.risk2.setGeometry(170, 230, 41, 16)
+
+    def risk_update4(self):
+        self.risk1.setVisible(False)
+        self.risk2.setVisible(False)
+        self.risk3.setVisible(False)
+        self.risk4.setVisible(False)
+        # p3 risk logic by default
+        if self.p3edit.text() == 'd':
+            if self.p2edit.text() == 'd':
+                # p1 risk logic
+                if risk(p1c, p2c, p3c, p4c) == 1:
+                    self.risk1.setVisible(True)
+                    self.risk1.setText('Risk')
+                    self.risk1.setGeometry(170, 60, 31, 16)
+                elif risk(p1c, p2c, p3c, p4c) == 2:
+                    self.risk1.setVisible(True)
+                    self.risk1.setText('D.Risk')
+                    self.risk1.setGeometry(170, 60, 41, 16)
+            else:
+                # p2 risk logic
+                if risk(p2c, p1c, p3c, p4c) == 1:
+                    self.risk2.setVisible(True)
+                    self.risk2.setText('Risk')
+                    self.risk2.setGeometry(170, 230, 31, 16)
+                elif risk(p2c, p1c, p3c, p4c) == 2:
+                    self.risk2.setVisible(True)
+                    self.risk2.setText('D.Risk')
+                    self.risk2.setGeometry(170, 230, 41, 16)
+        else:
+            # p3 risk logic
+            if risk(p3c, p1c, p2c, p4c) == 1:
+                self.risk3.setVisible(True)
+                self.risk3.setText('Risk')
+                self.risk3.setGeometry(710, 60, 31, 16)
+            elif risk(p3c, p1c, p2c, p4c) == 2:
+                self.risk3.setVisible(True)
+                self.risk3.setText('D.Risk')
+                self.risk3.setGeometry(710, 60, 41, 16)
+
     def with_update2(self):
         if self.p1call.isEnabled():
             # self.p1with.setEnabled(True)
@@ -85,25 +237,10 @@ class MainApp(QMainWindow, UI_File):
             if self.p1call.isChecked():
                 self.p1with.setEnabled(False)
                 self.p1with.setChecked(False)
-                # p4 risk test
-                dif = abs(13 - (p1c + p2c + p3c))
-                if abs(dif - p4c) == 3 or abs(dif - p4c) == 2:
-                    print('Risk')
-                    self.risk4.setVisible(True)
-                    self.risk4.setText('Risk')
-                    self.risk4.setGeometry(710, 230, 31, 16)
-                elif abs(dif - p4c) == 1 or abs(dif - p4c) == 0:
-                    print('not risk')
-                else:
-                    print('D.Risk')
-                    self.risk4.setVisible(True)
-                    self.risk4.setText('D.Risk')
-                    self.risk4.setGeometry(710, 230, 41, 16)
-                print('difff', dif)
+                self.p1call.toggled.connect(self.risk_update1)
             else:
                 self.p1with.setEnabled(True)
                 self.p1with.setChecked(True)
-                self.risk4.setVisible(False)
 
         if self.p2call.isEnabled():
             # self.p2with.setEnabled(True)
@@ -111,25 +248,10 @@ class MainApp(QMainWindow, UI_File):
             if self.p2call.isChecked():
                 self.p2with.setEnabled(False)
                 self.p2with.setChecked(False)
-                # p1 risk test
-                dif = abs(13 - (p2c + p4c + p3c))
-                if abs(dif - p1c) == 3 or abs(dif - p1c) == 2:
-                    print('Risk')
-                    self.risk1.setVisible(True)
-                    self.risk1.setText('Risk')
-                    self.risk1.setGeometry(170, 60, 31, 16)
-                elif abs(dif - p1c) == 1 or abs(dif - p1c) == 0:
-                    print('not risk')
-                else:
-                    print('D.Risk')
-                    self.risk1.setVisible(True)
-                    self.risk1.setText('D.Risk')
-                    self.risk1.setGeometry(170, 60, 41, 16)
-                print('difff', dif)
+                self.p2call.toggled.connect(self.risk_update2)
             else:
                 self.p2with.setEnabled(True)
                 self.p2with.setChecked(True)
-                self.risk1.setVisible(False)
 
         if self.p3call.isEnabled():
             # self.p3with.setEnabled(True)
@@ -137,25 +259,10 @@ class MainApp(QMainWindow, UI_File):
             if self.p3call.isChecked():
                 self.p3with.setEnabled(False)
                 self.p3with.setChecked(False)
-                # p2 risk test
-                dif = abs(13 - (p1c + p4c + p3c))
-                if abs(dif - p2c) == 3 or abs(dif - p2c) == 2:
-                    print('Risk')
-                    self.risk2.setVisible(True)
-                    self.risk2.setText('Risk')
-                    self.risk2.setGeometry(170, 230, 31, 16)
-                elif abs(dif - p2c) == 1 or abs(dif - p2c) == 0:
-                    print('not risk')
-                else:
-                    print('D.Risk')
-                    self.risk2.setVisible(True)
-                    self.risk2.setText('D.Risk')
-                    self.risk2.setGeometry(170, 230, 41, 16)
-                print('difff', dif)
+                self.p3call.toggled.connect(self.risk_update3)
             else:
                 self.p3with.setEnabled(True)
                 self.p3with.setChecked(True)
-                self.risk2.setVisible(False)
 
         if self.p4call.isEnabled():
             # self.p4with.setEnabled(True)
@@ -163,25 +270,11 @@ class MainApp(QMainWindow, UI_File):
             if self.p4call.isChecked():
                 self.p4with.setEnabled(False)
                 self.p4with.setChecked(False)
-                # p3 risk test
-                dif = abs(13 - (p4c + p2c + p1c))
-                if abs(dif - p3c) == 3 or abs(dif - p3c) == 2:
-                    print('Risk')
-                    self.risk3.setVisible(True)
-                    self.risk3.setText('Risk')
-                    self.risk3.setGeometry(710, 60, 31, 16)
-                elif abs(dif - p3c) == 1 or abs(dif - p3c) == 0:
-                    print('not risk')
-                else:
-                    print('D.Risk')
-                    self.risk3.setVisible(True)
-                    self.risk3.setText('D.Risk')
-                    self.risk3.setGeometry(710, 60, 41, 16)
-                print('difff', dif)
+                self.p4call.toggled.connect(self.risk_update4)
             else:
                 self.p4with.setEnabled(True)
                 self.p4with.setChecked(True)
-                self.risk3.setVisible(False)
+
 
     def with_update(self):
         '''
@@ -295,6 +388,10 @@ class MainApp(QMainWindow, UI_File):
             self.p2edit.setEnabled(False)
             self.p3edit.setEnabled(False)
             self.p4edit.setEnabled(False)
+            self.risk1.setVisible(False)
+            self.risk2.setVisible(False)
+            self.risk3.setVisible(False)
+            self.risk4.setVisible(False)
             self.p1result.setFocus(True)
             if ls_players[0] in caller:
                 self.p1call.setChecked(True)
@@ -320,6 +417,9 @@ class MainApp(QMainWindow, UI_File):
                 self.p3call.setChecked(True)
                 self.p3call.setEnabled(True)
                 self.p4call.setEnabled(False)
+                self.p1call.setChecked(False)
+                self.p2call.setChecked(False)
+                self.p4call.setChecked(False)
             elif ls_players[3] in caller:
                 self.p1call.setEnabled(False)
                 self.p2call.setEnabled(False)
@@ -373,6 +473,7 @@ class MainApp(QMainWindow, UI_File):
                 self.p1call.toggled.connect(self.with_update2)
                 if self.p1call.isChecked():
                     self.p1with.setEnabled(False)
+                    self.risk1.setVisible(False)
                 else:
                     self.p1with.setEnabled(True)
                     self.p1with.setChecked(True)
@@ -381,6 +482,7 @@ class MainApp(QMainWindow, UI_File):
                 self.p2call.toggled.connect(self.with_update2)
                 if self.p2call.isChecked():
                     self.p2with.setEnabled(False)
+                    self.risk2.setVisible(False)
                 else:
                     self.p2with.setEnabled(True)
                     self.p2with.setChecked(True)
@@ -389,6 +491,7 @@ class MainApp(QMainWindow, UI_File):
                 self.p3call.toggled.connect(self.with_update2)
                 if self.p3call.isChecked():
                     self.p3with.setEnabled(False)
+                    self.risk3.setVisible(False)
                 else:
                     self.p3with.setEnabled(True)
                     self.p3with.setChecked(True)
@@ -397,6 +500,7 @@ class MainApp(QMainWindow, UI_File):
                 self.p4call.toggled.connect(self.with_update2)
                 if self.p4call.isChecked():
                     self.p4with.setEnabled(False)
+                    self.risk4.setVisible(False)
                 else:
                     self.p4with.setEnabled(True)
                     self.p4with.setChecked(True)
@@ -405,76 +509,160 @@ class MainApp(QMainWindow, UI_File):
         print('calls list',calls)
         print(p1c, p2c, p3c, p4c)
 
-        if self.call1.isVisible() and self.p4edit.text() != 'd':
-            # p4 risk logic
-            dif = abs(13 - (p1c + p2c + p3c))
-            if abs(dif - p4c) == 3 or abs(dif - p4c) == 2:
-                print('Risk')
-                self.risk4.setVisible(True)
-                self.risk4.setText('Risk')
-                self.risk4.setGeometry(710, 230, 31, 16)
-            elif abs(dif - p4c) == 1 or abs(dif - p4c) == 0:
-                print('not risk')
+        if self.call1.isVisible():
+            self.risk1.setVisible(False)
+            self.risk2.setVisible(False)
+            self.risk3.setVisible(False)
+            self.risk4.setVisible(False)
+            # p4 risk logic by default
+            if self.p4edit.text() == 'd':
+                if self.p3edit.text() == 'd':
+                    # p2 risk logic
+                    if risk(p2c, p1c, p3c, p4c) == 1:
+                        self.risk2.setVisible(True)
+                        self.risk2.setText('Risk')
+                        self.risk2.setGeometry(170, 230, 31, 16)
+                    elif risk(p2c, p1c, p3c, p4c) == 2:
+                        self.risk2.setVisible(True)
+                        self.risk2.setText('D.Risk')
+                        self.risk2.setGeometry(170, 230, 41, 16)
+                else:
+                    # p3 risk logic
+                    if risk(p3c, p1c, p2c, p4c) == 1:
+                        self.risk3.setVisible(True)
+                        self.risk3.setText('Risk')
+                        self.risk3.setGeometry(710, 60, 31, 16)
+                    elif risk(p3c, p1c, p2c, p4c) == 2:
+                        self.risk3.setVisible(True)
+                        self.risk3.setText('D.Risk')
+                        self.risk3.setGeometry(710, 60, 41, 16)
             else:
-                print('D.Risk')
-                self.risk4.setVisible(True)
-                self.risk4.setText('D.Risk')
-                self.risk4.setGeometry(710,230,41,16)
-            print('difff', dif)
+                # p4 risk logic
+                if risk(p4c,p3c,p2c,p1c) == 1:
+                    self.risk4.setVisible(True)
+                    self.risk4.setText('Risk')
+                    self.risk4.setGeometry(710, 230, 31, 16)
+                elif risk(p4c,p3c,p2c,p1c) == 2:
+                    self.risk4.setVisible(True)
+                    self.risk4.setText('D.Risk')
+                    self.risk4.setGeometry(710, 230, 41, 16)
             print('test 1')
 
-        if self.call2.isVisible() and self.p1edit.text() != 'd':
-            # p1 risk logic
-            dif = abs(13 - (p2c + p4c + p3c))
-            if abs(dif - p1c) == 3 or abs(dif - p1c) == 2:
-                print('Risk')
-                self.risk1.setVisible(True)
-                self.risk1.setText('Risk')
-                self.risk1.setGeometry(170, 60, 31, 16)
-            elif abs(dif - p1c) == 1 or abs(dif - p1c) == 0:
-                print('not risk')
+        if self.call2.isVisible():
+            self.risk1.setVisible(False)
+            self.risk2.setVisible(False)
+            self.risk3.setVisible(False)
+            self.risk4.setVisible(False)
+            # p1 risk logic by default
+            if self.p1edit.text() == 'd':
+                if self.p4edit.text() == 'd':
+                    # p3 risk logic
+                    if risk(p3c, p1c, p2c, p4c) == 1:
+                        self.risk3.setVisible(True)
+                        self.risk3.setText('Risk')
+                        self.risk3.setGeometry(710, 60, 31, 16)
+                    elif risk(p3c, p1c, p2c, p4c) == 2:
+                        self.risk3.setVisible(True)
+                        self.risk3.setText('D.Risk')
+                        self.risk3.setGeometry(710, 60, 41, 16)
+                else:
+                    # p4 risk logic
+                    if risk(p4c, p3c, p2c, p1c) == 1:
+                        self.risk4.setVisible(True)
+                        self.risk4.setText('Risk')
+                        self.risk4.setGeometry(710, 230, 31, 16)
+                    elif risk(p4c, p3c, p2c, p1c) == 2:
+                        self.risk4.setVisible(True)
+                        self.risk4.setText('D.Risk')
+                        self.risk4.setGeometry(710, 230, 41, 16)
             else:
-                print('D.Risk')
-                self.risk1.setVisible(True)
-                self.risk1.setText('D.Risk')
-                self.risk1.setGeometry(170, 60, 41, 16)
-            print('difff', dif)
+                # p1 risk logic
+                if risk(p1c,p2c,p3c,p4c) == 1:
+                    self.risk1.setVisible(True)
+                    self.risk1.setText('Risk')
+                    self.risk1.setGeometry(170, 60, 31, 16)
+                elif risk(p1c,p2c,p3c,p4c) == 2:
+                    self.risk1.setVisible(True)
+                    self.risk1.setText('D.Risk')
+                    self.risk1.setGeometry(170, 60, 41, 16)
             print('test 2')
 
-        if self.call3.isVisible() and self.p2edit.text() != 'd':
-            # p2 risk logic
-            dif = abs(13 - (p1c + p4c + p3c))
-            if abs(dif - p2c) == 3 or abs(dif - p2c) == 2:
-                print('Risk')
-                self.risk2.setVisible(True)
-                self.risk2.setText('Risk')
-                self.risk2.setGeometry(170, 230, 31, 16)
-            elif abs(dif - p2c) == 1 or abs(dif - p2c) == 0:
-                print('not risk')
+        if self.call3.isVisible():
+            self.risk1.setVisible(False)
+            self.risk2.setVisible(False)
+            self.risk3.setVisible(False)
+            self.risk4.setVisible(False)
+            # p2 risk logic by default
+            if self.p2edit.text() == 'd':
+                if self.p1edit.text() == 'd':
+                    # p4 risk logic
+                    if risk(p4c, p3c, p2c, p1c) == 1:
+                        self.risk4.setVisible(True)
+                        self.risk4.setText('Risk')
+                        self.risk4.setGeometry(710, 230, 31, 16)
+                    elif risk(p4c, p3c, p2c, p1c) == 2:
+                        self.risk4.setVisible(True)
+                        self.risk4.setText('D.Risk')
+                        self.risk4.setGeometry(710, 230, 41, 16)
+                else:
+                    # p1 risk logic
+                    if risk(p1c, p2c, p3c, p4c) == 1:
+                        self.risk1.setVisible(True)
+                        self.risk1.setText('Risk')
+                        self.risk1.setGeometry(170, 60, 31, 16)
+                    elif risk(p1c, p2c, p3c, p4c) == 2:
+                        self.risk1.setVisible(True)
+                        self.risk1.setText('D.Risk')
+                        self.risk1.setGeometry(170, 60, 41, 16)
             else:
-                print('D.Risk')
-                self.risk2.setVisible(True)
-                self.risk2.setText('D.Risk')
-                self.risk2.setGeometry(170, 230, 41, 16)
-            print('difff', dif)
+                # p2 risk logic
+                if risk(p2c,p1c,p3c,p4c) == 1:
+                    self.risk2.setVisible(True)
+                    self.risk2.setText('Risk')
+                    self.risk2.setGeometry(170, 230, 31, 16)
+                elif risk(p2c,p1c,p3c,p4c) == 2:
+                    self.risk2.setVisible(True)
+                    self.risk2.setText('D.Risk')
+                    self.risk2.setGeometry(170, 230, 41, 16)
             print('test 3')
 
-        if self.call4.isVisible() and self.p3edit.text() != 'd':
-            # p3 risk logic
-            dif = abs(13 - (p4c + p2c + p1c))
-            if abs(dif - p3c) == 3 or abs(dif - p3c) == 2:
-                print('Risk')
-                self.risk3.setVisible(True)
-                self.risk3.setText('Risk')
-                self.risk3.setGeometry(710, 60, 31, 16)
-            elif abs(dif - p3c) == 1 or abs(dif - p3c) == 0:
-                print('not risk')
+        if self.call4.isVisible():
+            self.risk1.setVisible(False)
+            self.risk2.setVisible(False)
+            self.risk3.setVisible(False)
+            self.risk4.setVisible(False)
+            # p3 risk logic by default
+            if self.p3edit.text() == 'd':
+                if self.p2edit.text() == 'd':
+                    # p1 risk logic
+                    if risk(p1c, p2c, p3c, p4c) == 1:
+                        self.risk1.setVisible(True)
+                        self.risk1.setText('Risk')
+                        self.risk1.setGeometry(170, 60, 31, 16)
+                    elif risk(p1c, p2c, p3c, p4c) == 2:
+                        self.risk1.setVisible(True)
+                        self.risk1.setText('D.Risk')
+                        self.risk1.setGeometry(170, 60, 41, 16)
+                else:
+                    # p2 risk logic
+                    if risk(p2c, p1c, p3c, p4c) == 1:
+                        self.risk2.setVisible(True)
+                        self.risk2.setText('Risk')
+                        self.risk2.setGeometry(170, 230, 31, 16)
+                    elif risk(p2c, p1c, p3c, p4c) == 2:
+                        self.risk2.setVisible(True)
+                        self.risk2.setText('D.Risk')
+                        self.risk2.setGeometry(170, 230, 41, 16)
             else:
-                print('D.Risk')
-                self.risk3.setVisible(True)
-                self.risk3.setText('D.Risk')
-                self.risk3.setGeometry(710, 60, 41, 16)
-            print('difff', dif)
+                # p3 risk logic
+                if risk(p3c,p1c,p2c,p4c) == 1:
+                    self.risk3.setVisible(True)
+                    self.risk3.setText('Risk')
+                    self.risk3.setGeometry(710, 60, 31, 16)
+                elif risk(p3c,p1c,p2c,p4c) == 2:
+                    self.risk3.setVisible(True)
+                    self.risk3.setText('D.Risk')
+                    self.risk3.setGeometry(710, 60, 41, 16)
             print('test 4')
 
     def clear_1(self):
@@ -919,12 +1107,24 @@ class MainApp(QMainWindow, UI_File):
         self.multi_no.setChecked(False)
 
 
+def risk(p1, p2, p3, p4):
+    # p1 : player to be checked
+    dif = abs(13 - (p2c + p4c + p3c))
+    if abs(dif - p1c) == 3 or abs(dif - p1c) == 2:
+        return 1
+    elif abs(dif - p1c) == 1 or abs(dif - p1c) == 0:
+        return 0
+    else:
+        return 2
+
+
 def check_int(num):
     try:
         num=int(num)
         return True
     except:
         return False
+
 
 def only_win_lose(winners, losers):
     if len(winners) == 1:
