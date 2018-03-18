@@ -4,7 +4,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUiType
 from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+#from PyQt5.QtGui import *
 
 UI_File, _ = loadUiType(os.path.join(os.path.dirname('__file__'), "Score Board.ui"))
 
@@ -58,6 +58,16 @@ class MainApp(QMainWindow, UI_File):
         self.clear_bt.clicked.connect(self.clear)
         self.calculate_bt.clicked.connect(self.calculate)
 
+        self.dc1.toggled.connect(self.dash_call1)
+        self.dc2.toggled.connect(self.dash_call2)
+        self.dc3.toggled.connect(self.dash_call3)
+        self.dc4.toggled.connect(self.dash_call4)
+
+        #self.dc1.toggled.connect(self.dash_call)
+        #self.dc2.toggled.connect(self.dash_call)
+        #self.dc3.toggled.connect(self.dash_call)
+        #self.dc4.toggled.connect(self.dash_call)
+
         #self.p1call.toggled.connect(self.update)
         #self.p2call.toggled.connect(self.update)
         #self.p3call.toggled.connect(self.update)
@@ -68,15 +78,153 @@ class MainApp(QMainWindow, UI_File):
         #self.p3call.toggled.connect(self.with_update)
         #self.p4call.toggled.connect(self.with_update)
 
-        self.p1edit.textChanged.connect(self.ui_update)
-        self.p2edit.textChanged.connect(self.ui_update)
-        self.p3edit.textChanged.connect(self.ui_update)
-        self.p4edit.textChanged.connect(self.ui_update)
+        self.p1edit.textChanged.connect(self.edit1)
+        self.p2edit.textChanged.connect(self.edit2)
+        self.p3edit.textChanged.connect(self.edit3)
+        self.p4edit.textChanged.connect(self.edit4)
+
+        #self.p4edit.editingFinished.connect(self.ui_update)
 
         self.p1result.textChanged.connect(self.ui_update)
         self.p2result.textChanged.connect(self.ui_update)
         self.p3result.textChanged.connect(self.ui_update)
         self.p4result.textChanged.connect(self.ui_update)
+
+    def dash_call(self):
+        if self.dc1.isChecked() and self.dc2.isChecked():
+            self.dc3.setEnabled(False)
+            self.dc4.setEnabled(False)
+            self.p1edit.setEnabled(False)
+            self.p2edit.setEnabled(False)
+            return True
+        else:
+            print('here')
+            if self.p3edit.text() == '':
+                self.dc3.setEnabled(True)
+            if self.p4edit.text() == '':
+                self.dc4.setEnabled(True)
+            #self.p1edit.setEnabled(True)
+            #self.p2edit.setEnabled(True)
+
+            if self.dc1.isChecked() and self.dc3.isChecked():
+                self.dc2.setEnabled(False)
+                self.dc4.setEnabled(False)
+                self.p1edit.setEnabled(False)
+                self.p3edit.setEnabled(False)
+                return True
+            else:
+                if self.p2edit.text() == '':
+                    self.dc2.setEnabled(True)
+                if self.p4edit.text() == '':
+                    self.dc4.setEnabled(True)
+                print('here1')
+                #self.p1edit.setEnabled(True)
+                #self.p3edit.setEnabled(True)
+
+                if self.dc1.isChecked() and self.dc4.isChecked():
+                    self.dc2.setEnabled(False)
+                    self.dc3.setEnabled(False)
+                    self.p1edit.setEnabled(False)
+                    self.p4edit.setEnabled(False)
+                    return True
+                else:
+                    print('here2')
+                    if self.p2edit.text() == '':
+                        self.dc2.setEnabled(True)
+                    if self.p3edit.text() == '':
+                        self.dc3.setEnabled(True)
+                    #self.p1edit.setEnabled(True)
+                    #self.p4edit.setEnabled(True)
+
+                    if self.dc2.isChecked() and self.dc3.isChecked():
+                        self.dc1.setEnabled(False)
+                        self.dc4.setEnabled(False)
+                        self.p2edit.setEnabled(False)
+                        self.p3edit.setEnabled(False)
+                        return True
+                    else:
+                        print('here3')
+                        if self.p1edit.text()=='':
+                            self.dc1.setEnabled(True)
+                        if self.p4edit.text() == '':
+                            self.dc4.setEnabled(True)
+                        #self.p2edit.setEnabled(True)
+                        #self.p3edit.setEnabled(True)
+
+                        if self.dc2.isChecked() and self.dc4.isChecked():
+                            self.dc1.setEnabled(False)
+                            self.dc3.setEnabled(False)
+                            self.p2edit.setEnabled(False)
+                            self.p4edit.setEnabled(False)
+                            return True
+                        else:
+                            print('here4')
+                            if self.p1edit.text() == '':
+                                self.dc1.setEnabled(True)
+                            if self.p3edit.text() == '':
+                                self.dc3.setEnabled(True)
+                            #self.p2edit.setEnabled(True)
+                            #self.p4edit.setEnabled(True)
+
+                            if self.dc3.isChecked() and self.dc4.isChecked():
+                                self.dc1.setEnabled(False)
+                                self.dc2.setEnabled(False)
+                                self.p3edit.setEnabled(False)
+                                self.p4edit.setEnabled(False)
+                                return True
+                            else:
+                                print('here5')
+                                if self.p1edit.text() == '':
+                                    self.dc1.setEnabled(True)
+                                if self.p2edit.text() == '':
+                                    self.dc2.setEnabled(True)
+                                #self.p3edit.setEnabled(True)
+                                #self.p4edit.setEnabled(True)
+                                return False
+
+    def dash_call1(self):
+        self.dash_call()
+        if self.dc1.isChecked():
+            self.p1edit.setEnabled(False)
+            self.p1edit.clear()
+            self.p2edit.setFocus(True)
+        else:
+            self.p1edit.setEnabled(True)
+            self.p1edit.setFocus(True)
+        self.ui_update()
+
+    def dash_call2(self):
+        self.dash_call()
+        if self.dc2.isChecked():
+            self.p2edit.setEnabled(False)
+            self.p2edit.clear()
+            self.p3edit.setFocus(True)
+        else:
+            self.p2edit.setEnabled(True)
+            self.p2edit.setFocus(True)
+        self.ui_update()
+
+    def dash_call3(self):
+        self.dash_call()
+        if self.dc3.isChecked():
+            self.p3edit.setEnabled(False)
+            self.p3edit.clear()
+            self.p4edit.setFocus(True)
+        else:
+            self.p3edit.setEnabled(True)
+            self.p3edit.setFocus(True)
+        self.ui_update()
+
+    def dash_call4(self):
+        self.dash_call()
+        if self.dc4.isChecked():
+            self.p4edit.setEnabled(False)
+            self.p4edit.clear()
+            self.p1result.setFocus(True)
+        else:
+            self.p4edit.setEnabled(True)
+            self.p4edit.setFocus(True)
+        self.ui_update()
 
     def risk_update1(self):
         self.risk1.setVisible(False)
@@ -84,8 +232,8 @@ class MainApp(QMainWindow, UI_File):
         self.risk3.setVisible(False)
         self.risk4.setVisible(False)
         # p4 risk logic by default
-        if self.p4edit.text() == 'd':
-            if self.p3edit.text() == 'd':
+        if self.dc4.isChecked():
+            if self.dc3.isChecked():
                 # p2 risk logic
                 if risk(p2c, p1c, p3c, p4c) == 1:
                     self.risk2.setVisible(True)
@@ -122,8 +270,8 @@ class MainApp(QMainWindow, UI_File):
         self.risk3.setVisible(False)
         self.risk4.setVisible(False)
         # p1 risk logic by default
-        if self.p1edit.text() == 'd':
-            if self.p4edit.text() == 'd':
+        if self.dc1.isChecked():
+            if self.dc4.isChecked():
                 # p3 risk logic
                 if risk(p3c, p1c, p2c, p4c) == 1:
                     self.risk3.setVisible(True)
@@ -160,8 +308,8 @@ class MainApp(QMainWindow, UI_File):
         self.risk3.setVisible(False)
         self.risk4.setVisible(False)
         # p2 risk logic by default
-        if self.p2edit.text() == 'd':
-            if self.p1edit.text() == 'd':
+        if self.dc2.isChecked():
+            if self.dc1.isChecked():
                 # p4 risk logic
                 if risk(p4c, p3c, p2c, p1c) == 1:
                     self.risk4.setVisible(True)
@@ -198,8 +346,8 @@ class MainApp(QMainWindow, UI_File):
         self.risk3.setVisible(False)
         self.risk4.setVisible(False)
         # p3 risk logic by default
-        if self.p3edit.text() == 'd':
-            if self.p2edit.text() == 'd':
+        if self.dc3.isChecked():
+            if self.dc2.isChecked():
                 # p1 risk logic
                 if risk(p1c, p2c, p3c, p4c) == 1:
                     self.risk1.setVisible(True)
@@ -275,98 +423,43 @@ class MainApp(QMainWindow, UI_File):
                 self.p4with.setEnabled(True)
                 self.p4with.setChecked(True)
 
-
-    def with_update(self):
-        '''
-        # with checked or not (toggle event)
-        if self.p1call.isChecked() and (self.p1with.isEnabled() or self.p1with.isChecked()):
-            self.p1with.setChecked(False)
-            self.p1with.setEnabled(False)
-        if self.p2call.isChecked() and (self.p2with.isEnabled() or self.p2with.isChecked()):
-            self.p2with.setChecked(False)
-            self.p2with.setEnabled(False)
-        if self.p3call.isChecked() and (self.p3with.isEnabled() or self.p3with.isChecked()):
-            self.p3with.setChecked(False)
-            self.p3with.setEnabled(False)
-        if self.p4call.isChecked() and (self.p4with.isEnabled() or self.p4with.isChecked()):
-            self.p4with.setChecked(False)
-            self.p4with.setEnabled(False)
-        '''
-        pass
-
     def update(self):
         global p1c, p2c, p3c, p4c
         p1c = self.p1edit.text()
         p2c = self.p2edit.text()
         p3c = self.p3edit.text()
         p4c = self.p4edit.text()
-        calls=[]
+        calls = []
         ls_players=['p1','p2','p3','p4']
         caller=[]
-        dc=[]
-        if check_int(p1c):
-            p1c = int(p1c)
-            calls.append(p1c)
+
+        if self.dc1.isChecked():
+            p1c=0
+            calls.append(0)
         else:
-            if self.p1edit.text() == 'd':
-                p1c=0
-                calls.append(0)
-            else:
-                self.p1edit.clear()
-                QMessageBox.warning(self,'error','input must be number or d only')
-                self.p1edit.setFocus(True)
-                return
-        if check_int(p2c):
-            p2c=int(p2c)
+            p1c=int(p1c)
+            calls.append(p1c)
+
+        if self.dc2.isChecked():
+            p2c=0
             calls.append(p2c)
         else:
-            if self.p2edit.text() == 'd':
-                    p2c=0
-                    calls.append(0)
-            else:
-                self.p2edit.clear()
-                QMessageBox.warning(self,'error','input must be number or d only')
-                self.p2edit.setFocus(True)
-                return
+            p2c = int(p2c)
+            calls.append(p2c)
 
-        if check_int(p3c):
-            p3c=int(p3c)
+        if self.dc3.isChecked():
+            p3c=0
             calls.append(p3c)
         else:
-            if self.p3edit.text() == 'd':
-                p3c=0
-                calls.append(0)
-            else:
-                self.p3edit.clear()
-                QMessageBox.warning(self,'error','input must be number or d only')
-                self.p3edit.setFocus(True)
-                return
+            p3c = int(p3c)
+            calls.append(p3c)
 
-        if check_int(p4c):
-            p4c=int(p4c)
+        if self.dc4.isChecked():
+            p4c=0
             calls.append(p4c)
         else:
-            if self.p4edit.text() == 'd':
-                    p4c=0
-                    calls.append(0)
-            else:
-                self.p4edit.clear()
-                QMessageBox.warning(self,'error','input must be number or d only')
-                self.p4edit.setFocus(True)
-                return
-
-        for i in calls:
-            if i == 0:
-                dc.append(i)
-        print('dc', dc)
-        if len(dc) > 2:
-            QMessageBox.warning(self, 'error', 'no more two dash calls allowed')
-            self.p1edit.clear()
-            self.p2edit.clear()
-            self.p3edit.clear()
-            self.p4edit.clear()
-            self.p1edit.setFocus(True)
-            return
+            p4c = int(p4c)
+            calls.append(p4c)
 
         call = max(calls)
         if sum(calls) == 13:
@@ -515,8 +608,8 @@ class MainApp(QMainWindow, UI_File):
             self.risk3.setVisible(False)
             self.risk4.setVisible(False)
             # p4 risk logic by default
-            if self.p4edit.text() == 'd':
-                if self.p3edit.text() == 'd':
+            if self.dc4.isChecked():
+                if self.dc3.isChecked():
                     # p2 risk logic
                     if risk(p2c, p1c, p3c, p4c) == 1:
                         self.risk2.setVisible(True)
@@ -554,8 +647,8 @@ class MainApp(QMainWindow, UI_File):
             self.risk3.setVisible(False)
             self.risk4.setVisible(False)
             # p1 risk logic by default
-            if self.p1edit.text() == 'd':
-                if self.p4edit.text() == 'd':
+            if self.dc1.isChecked():
+                if self.dc4.isChecked():
                     # p3 risk logic
                     if risk(p3c, p1c, p2c, p4c) == 1:
                         self.risk3.setVisible(True)
@@ -593,8 +686,8 @@ class MainApp(QMainWindow, UI_File):
             self.risk3.setVisible(False)
             self.risk4.setVisible(False)
             # p2 risk logic by default
-            if self.p2edit.text() == 'd':
-                if self.p1edit.text() == 'd':
+            if self.dc2.isChecked():
+                if self.dc1.isChecked():
                     # p4 risk logic
                     if risk(p4c, p3c, p2c, p1c) == 1:
                         self.risk4.setVisible(True)
@@ -632,8 +725,8 @@ class MainApp(QMainWindow, UI_File):
             self.risk3.setVisible(False)
             self.risk4.setVisible(False)
             # p3 risk logic by default
-            if self.p3edit.text() == 'd':
-                if self.p2edit.text() == 'd':
+            if self.dc3.isChecked():
+                if self.dc2.isChecked():
                     # p1 risk logic
                     if risk(p1c, p2c, p3c, p4c) == 1:
                         self.risk1.setVisible(True)
@@ -697,6 +790,78 @@ class MainApp(QMainWindow, UI_File):
         if self.p4result.text() != '':
             self.p4result.clear()
 
+    def edit1(self):
+        prob = []
+        for i in range(13):
+            prob.append(str(i))
+
+        if self.p1edit.text() not in prob:
+            self.p1edit.clear()
+
+        if self.p1edit.text() != '':
+            self.dc1.setEnabled(False)
+            clickable(self.p1edit).connect(self.clear_1)
+        else:
+            if self.dash_call():
+                self.dc1.setEnabled(False)
+            else:
+                self.dc1.setEnabled(True)
+        self.ui_update()
+
+    def edit2(self):
+        prob = []
+        for i in range(13):
+            prob.append(str(i))
+
+        if self.p2edit.text() not in prob:
+            self.p2edit.clear()
+
+        if self.p2edit.text() != '':
+            self.dc2.setEnabled(False)
+            clickable(self.p2edit).connect(self.clear_2)
+        else:
+            if self.dash_call():
+                self.dc2.setEnabled(False)
+            else:
+                self.dc2.setEnabled(True)
+        self.ui_update()
+
+    def edit3(self):
+        prob = []
+        for i in range(13):
+            prob.append(str(i))
+
+        if self.p3edit.text() not in prob:
+            self.p3edit.clear()
+
+        if self.p3edit.text() != '':
+            self.dc3.setEnabled(False)
+            clickable(self.p3edit).connect(self.clear_3)
+        else:
+            if self.dash_call():
+                self.dc3.setEnabled(False)
+            else:
+                self.dc3.setEnabled(True)
+        self.ui_update()
+
+    def edit4(self):
+        prob = []
+        for i in range(13):
+            prob.append(str(i))
+
+        if self.p4edit.text() not in prob:
+            self.p4edit.clear()
+
+        if self.p4edit.text() != '':
+            self.dc4.setEnabled(False)
+            clickable(self.p4edit).connect(self.clear_4)
+        else:
+            if self.dash_call():
+                self.dc4.setEnabled(False)
+            else:
+                self.dc4.setEnabled(True)
+        self.ui_update()
+
     def ui_update(self):
         if self.p1result.text() != '':
             clickable(self.p1result).connect(self.clear_11)
@@ -710,69 +875,57 @@ class MainApp(QMainWindow, UI_File):
         if self.p4result.text() != '':
             clickable(self.p4result).connect(self.clear_14)
 
-        if self.p1edit.text() != '':
-            self.p2edit.setEnabled(True)
-            clickable(self.p1edit).connect(self.clear_1)
-        else:
-            self.p2edit.setEnabled(False)
-
-        if self.p2edit.text() != '' and self.p2edit.isEnabled():
-            self.p3edit.setEnabled(True)
-            clickable(self.p2edit).connect(self.clear_2)
-        else:
-            self.p3edit.setEnabled(False)
-
-        if self.p3edit.text() != '' and self.p3edit.isEnabled():
-            self.p4edit.setEnabled(True)
-            clickable(self.p3edit).connect(self.clear_3)
-        else:
-            self.p4edit.setEnabled(False)
-
-        if self.p4edit.text() != '':
-            clickable(self.p4edit).connect(self.clear_4)
-
-            if self.p1call.isChecked() and self.p4edit.isEnabled():
+        if (self.p1edit.text() != '' or self.dc1.isChecked()) and (self.p2edit.text() != '' or self.dc2.isChecked())\
+                and (self.p3edit.text() != '' or self.dc3.isChecked()) and \
+                (self.p4edit.text() != '' or self.dc4.isChecked()):
+            print('True')
+            if self.p1call.isChecked():
                 self.call1.setVisible(True)
                 if self.call1.isVisible():
                     print('test 111')
                     self.update()
 
-            if self.p2call.isChecked()and self.p4edit.isEnabled():
+            if self.p2call.isChecked():
                 self.call2.setVisible(True)
                 if self.call2.isVisible():
                     print('test 222')
                     self.update()
 
-            if self.p3call.isChecked()and self.p4edit.isEnabled():
+            if self.p3call.isChecked():
                 self.call3.setVisible(True)
                 if self.call3.isVisible():
                     print('test 333')
                     self.update()
 
-            if self.p4call.isChecked()and self.p4edit.isEnabled():
+            if self.p4call.isChecked():
                 self.call4.setVisible(True)
                 if self.call4.isVisible():
                     print('test 444')
                     self.update()
         else:
+            print('false')
             self.call1.setVisible(False)
             self.call2.setVisible(False)
             self.call3.setVisible(False)
             self.call4.setVisible(False)
+            return
 
         # calculate button control
-        if self.p1edit.text() == '' or self.p2edit.text() == '' or self.p3edit.text() == '' or \
-                self.p4edit.text() == '' or self.p1result.text() == '' or self.p2result.text() == '' or \
-                self.p3result.text() == '' or self.p4result.text() == '':
-            self.calculate_bt.setEnabled(False)
-        else:
+        if (self.p1edit.text()!='' or self.dc1.isChecked()) and (self.p2edit.text()!='' or self.dc2.isChecked())\
+                and (self.p3edit.text()!='' or self.dc3.isChecked()) and \
+                (self.p4edit.text()!='' or self.dc4.isChecked())\
+                and self.p1result.text() != '' and self.p2result.text() != '' and \
+                self.p3result.text() != '' and self.p4result.text() != '':
             self.calculate_bt.setEnabled(True)
-
-        if self.p1edit.text() == '' or self.p2edit.text() == '' or self.p3edit.text() == '' or \
-                self.p4edit.text() == '':
-            self.call_group.setEnabled(False)
         else:
+            self.calculate_bt.setEnabled(False)
+
+        if (self.p1edit.text()!='' or self.dc1.isChecked()) and (self.p2edit.text()!='' or self.dc2.isChecked())\
+                and (self.p3edit.text()!='' or self.dc3.isChecked()) and \
+                (self.p4edit.text()!='' or self.dc4.isChecked()):
             self.call_group.setEnabled(True)
+        else:
+            self.call_group.setEnabled(False)
 
     def calculate(self):
         p1in = self.p1edit.text()
@@ -1056,6 +1209,9 @@ class MainApp(QMainWindow, UI_File):
 
     def clear(self):
         self.p1edit.setEnabled(True)
+        self.p2edit.setEnabled(True)
+        self.p3edit.setEnabled(True)
+        self.p4edit.setEnabled(True)
         self.p1edit.setFocus(True)
         self.p1edit.clear()
         self.p2edit.clear()
@@ -1077,7 +1233,20 @@ class MainApp(QMainWindow, UI_File):
         self.risk2.setVisible(False)
         self.risk3.setVisible(False)
         self.risk4.setVisible(False)
+        self.call1.setVisible(False)
+        self.call2.setVisible(False)
+        self.call3.setVisible(False)
+        self.call4.setVisible(False)
+        self.dc1.setEnabled(True)
+        self.dc2.setEnabled(True)
+        self.dc3.setEnabled(True)
+        self.dc4.setEnabled(True)
+        self.dc1.setChecked(False)
+        self.dc2.setChecked(False)
+        self.dc3.setChecked(False)
+        self.dc4.setChecked(False)
         self.multi_no.setChecked(False)
+        self.call_group.setEnabled(False)
 
     def reset(self):
         self.p1sc.setText('score')
@@ -1116,14 +1285,6 @@ def risk(p1, p2, p3, p4):
         return 0
     else:
         return 2
-
-
-def check_int(num):
-    try:
-        num=int(num)
-        return True
-    except:
-        return False
 
 
 def only_win_lose(winners, losers):

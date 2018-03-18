@@ -67,7 +67,7 @@
     <widget class="QLabel" name="p1sc">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>90</x>
        <y>80</y>
        <width>47</width>
        <height>21</height>
@@ -82,7 +82,7 @@
       <rect>
        <x>10</x>
        <y>110</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -96,7 +96,7 @@
     <widget class="QLabel" name="p1sc_2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>110</y>
        <width>47</width>
        <height>21</height>
@@ -109,7 +109,7 @@
     <widget class="QLabel" name="p1sc_3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>50</y>
        <width>47</width>
        <height>21</height>
@@ -124,7 +124,7 @@
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -136,6 +136,25 @@
      </property>
      <property name="maxLength">
       <number>2</number>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dc1">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>50</y>
+       <width>70</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Dash Call</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -153,13 +172,13 @@
     </property>
     <widget class="QLineEdit" name="p3edit">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -170,7 +189,7 @@
     <widget class="QLabel" name="p3sc">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>90</x>
        <y>80</y>
        <width>47</width>
        <height>21</height>
@@ -185,7 +204,7 @@
       <rect>
        <x>10</x>
        <y>110</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -199,7 +218,7 @@
     <widget class="QLabel" name="p1sc_6">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>110</y>
        <width>47</width>
        <height>21</height>
@@ -212,7 +231,7 @@
     <widget class="QLabel" name="p1sc_7">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>50</y>
        <width>47</width>
        <height>21</height>
@@ -220,6 +239,22 @@
      </property>
      <property name="text">
       <string>Call</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dc3">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>50</y>
+       <width>70</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Dash Call</string>
      </property>
     </widget>
    </widget>
@@ -237,13 +272,13 @@
     </property>
     <widget class="QLineEdit" name="p2edit">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -257,7 +292,7 @@
     <widget class="QLabel" name="p2sc">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>90</x>
        <y>80</y>
        <width>47</width>
        <height>21</height>
@@ -272,7 +307,7 @@
       <rect>
        <x>10</x>
        <y>110</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -286,7 +321,7 @@
     <widget class="QLabel" name="p1sc_4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>50</y>
        <width>47</width>
        <height>21</height>
@@ -299,7 +334,7 @@
     <widget class="QLabel" name="p1sc_5">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>110</y>
        <width>47</width>
        <height>21</height>
@@ -307,6 +342,22 @@
      </property>
      <property name="text">
       <string>Result</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dc2">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>50</y>
+       <width>70</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Dash Call</string>
      </property>
     </widget>
    </widget>
@@ -324,13 +375,13 @@
     </property>
     <widget class="QLineEdit" name="p4edit">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -341,7 +392,7 @@
     <widget class="QLabel" name="p4sc">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>90</x>
        <y>80</y>
        <width>47</width>
        <height>21</height>
@@ -356,7 +407,7 @@
       <rect>
        <x>10</x>
        <y>110</y>
-       <width>91</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -370,7 +421,7 @@
     <widget class="QLabel" name="p1sc_8">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>110</y>
        <width>47</width>
        <height>21</height>
@@ -383,7 +434,7 @@
     <widget class="QLabel" name="p1sc_9">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>160</x>
        <y>50</y>
        <width>47</width>
        <height>21</height>
@@ -391,6 +442,22 @@
      </property>
      <property name="text">
       <string>Call</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dc4">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>50</y>
+       <width>70</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Dash Call</string>
      </property>
     </widget>
    </widget>
