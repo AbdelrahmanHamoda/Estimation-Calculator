@@ -55,6 +55,7 @@ class MainApp(QMainWindow, UI_File):
     def actions(self):
         self.reset_bt.clicked.connect(self.reset)
         self.clear_bt.clicked.connect(self.clear)
+        self.clear_call.clicked.connect(self.clear_input)
         self.calculate_bt.clicked.connect(self.calculate)
 
         self.dc1.toggled.connect(self.dash_call1)
@@ -437,7 +438,12 @@ class MainApp(QMainWindow, UI_File):
         p2c = self.p2edit.text()
         p3c = self.p3edit.text()
         p4c = self.p4edit.text()
+        p1r = self.p1result.text()
+        p2r = self.p2result.text()
+        p3r = self.p3result.text()
+        p4r = self.p4result.text()
         calls = []
+        result_calls=[]
         ls_players = ['p1','p2','p3','p4']
         caller = []
 
@@ -469,15 +475,53 @@ class MainApp(QMainWindow, UI_File):
             p4c = int(p4c)
             calls.append(p4c)
 
+        if self.dc11.isChecked():
+            p1r=0
+            result_calls.append(0)
+        else:
+            p1r=int(p1r)
+            result_calls.append(p1r)
+
+        if self.dc12.isChecked():
+            p2r=0
+            result_calls.append(p2r)
+        else:
+            p2r = int(p2r)
+            result_calls.append(p2r)
+
+        if self.dc13.isChecked():
+            p3r=0
+            result_calls.append(p3r)
+        else:
+            p3r = int(p3r)
+            result_calls.append(p3r)
+
+        if self.dc14.isChecked():
+            p4r=0
+            result_calls.append(p4r)
+        else:
+            p4r = int(p4r)
+            result_calls.append(p4r)
+
         call = max(calls)
         if sum(calls) == 13:
             QMessageBox.warning(self, 'Call error', 'total calls must be lower or greater than 13')
-            calls.clear()
+            #calls.clear()
             self.p1edit.clear()
             self.p2edit.clear()
             self.p3edit.clear()
             self.p4edit.clear()
             self.p1edit.setFocus(True)
+            return
+
+        if sum(result_calls) >= 13:
+            QMessageBox.warning(self, 'Call error', 'total results must be lower than 13')
+            #result_calls.clear()
+            self.p1result.clear()
+            self.p2result.clear()
+            self.p3result.clear()
+            self.p4result.clear()
+            self.p1result.setFocus(True)
             return
 
         for x, y in zip(calls, ls_players):
@@ -938,9 +982,17 @@ class MainApp(QMainWindow, UI_File):
         self.ui_update()
 
     def ui_update(self):
-        if (self.p1edit.text() != '' or self.dc1.isChecked()) and (self.p2edit.text() != '' or self.dc2.isChecked())\
+
+        # calculate button control
+        if (self.p1edit.text() != '' or self.dc1.isChecked()) and (self.p2edit.text() != '' or self.dc2.isChecked()) \
                 and (self.p3edit.text() != '' or self.dc3.isChecked()) and \
-                (self.p4edit.text() != '' or self.dc4.isChecked()):
+                (self.p4edit.text() != '' or self.dc4.isChecked()) \
+                and (self.p1result.text() != '' or self.dc11.isChecked()) and \
+                (self.p2result.text() != '' or self.dc12.isChecked()) \
+                and (self.p3result.text() != '' or self.dc13.isChecked()) and \
+                (self.p4result.text() != '' or self.dc14.isChecked()):
+
+            self.calculate_bt.setEnabled(True)
             print('True')
             self.call_group.setEnabled(True)
             if self.p1call.isChecked():
@@ -967,6 +1019,7 @@ class MainApp(QMainWindow, UI_File):
                     print('test 444')
                     self.update()
         else:
+            self.calculate_bt.setEnabled(False)
             print('false')
             self.call1.setVisible(False)
             self.call2.setVisible(False)
@@ -991,19 +1044,6 @@ class MainApp(QMainWindow, UI_File):
             self.call_group.setEnabled(False)
             return
 
-        # calculate button control
-        if (self.p1edit.text()!='' or self.dc1.isChecked()) and (self.p2edit.text()!='' or self.dc2.isChecked())\
-                and (self.p3edit.text()!='' or self.dc3.isChecked()) and \
-                (self.p4edit.text()!='' or self.dc4.isChecked())\
-                and (self.p1result.text() != '' or self.dc11.isChecked()) and \
-                (self.p2result.text() != '' or self.dc12.isChecked())\
-                and (self.p3result.text() != '' or self.dc13.isChecked()) and \
-                (self.p4result.text() != '' or self.dc14.isChecked()):
-
-            self.calculate_bt.setEnabled(True)
-        else:
-            self.calculate_bt.setEnabled(False)
-
     def calculate(self):
         p1in = self.p1edit.text()
         p2in = self.p2edit.text()
@@ -1017,10 +1057,12 @@ class MainApp(QMainWindow, UI_File):
         p2sc = self.p2sc.text()
         p3sc = self.p3sc.text()
         p4sc = self.p4sc.text()
+        r=self.lcd.intValue()
         p1round = p2round = p3round = p4round = 0
         ls_sum_in = []
         p1, p2, p3, p4 = [], [], [], []
         winners, losers = [], []
+        bounce = ['call', 'dash call', 'risk', 'd.risk', 'with', 'only win']
 
         if not self.dc11.isChecked():
             p1result = int(p1result)
@@ -1209,66 +1251,112 @@ class MainApp(QMainWindow, UI_File):
         # calculation logic starts here
         # p1 score
         if 'p1' in winners:
-            p1round += p1result
+            print('regular call 1')
+            if ('p1' in winners) and (self.p1edit.text()=='0') and under:
+                print('complex 1')
+                p1round += 10
+            else:
+                if not self.dc11.isChecked():
+                    p1round += p1result
+                    x = 0
+                    for i in bounce:
+                        x += 1
+                        if i not in p1:
+                            if x == 6:
+                                print('test regular p1')
+                                p1round += 10
+
+                        else:
+                            print('test regularrr p1')
+                            p1round -= 0
+                            break
         else:
-            p1round -= abs(p1in-p1result)
+            if ('p1' in losers) and (self.p1edit.text()=='0') and over:
+                p1round += 10
+            else:
+                p1round -= abs(p1in-p1result)
+                print('regular call 1')
 
         if 'call' in p1:
+            print('call 1')
             if 'p1' in winners:
                 p1round += 20
             else:
                 p1round -= 10
         if 'dash call' in p1:
+            print('dash call 1')
             if 'p1' in winners:
                 p1round += 23
             else:
                 p1round -= 23
-        if 'with' and 'risk' in p1:
+        if ('with' in p1) and ('risk' in p1):
+            print('with risk 1')
             if 'p1' in winners:
                 p1round += 30
             else:
                 p1round -= 20
-        elif 'with' and 'd.risk' in p1:
+        elif ('with' in p1) and ('d.risk' in p1):
+            print('with double risk 1')
             if 'p1' in winners:
                 p1round += 40
             else:
                 p1round -= 30
         else:
             if 'with' in p1:
+                print('with 1')
                 if 'p1' in winners:
                     p1round += 20
                 else:
                     p1round -= 10
 
             if 'risk' in p1:
+                print('risk 1')
                 if 'p1' in winners:
                     p1round += 20
                 else:
                     p1round -= 10
             elif 'd.risk' in p1:
+                print('double risk 1')
                 if 'p1' in winners:
                     p1round += 30
                 else:
                     p1round -= 20
 
         if 'only win' in p1:
+            print('only win 1')
             p1round += 10
 
         if 'only lose' in p1:
+            print('only lose 1')
             p1round -= 10
-
-        if (('p1' in winners) and (0 in p1) and under) or (('p1' in losers) and (0 in p1) and over):
-            p1round += 10
 
         for lopper in [8,9,10,11,12]:
             if lopper in p1:
                 p1round *= 2
+                print('super call 1')
 
         # p2 score
         if 'p2' in winners:
-            p2round += p2result
+            if ('p2' in winners) and (self.p2edit.text()=='0') and under:
+                p2round += 10
+            else:
+                if not self.dc12.isChecked():
+                    p2round += p2result
+                    x = 0
+                    for i in bounce:
+                        x += 1
+                        if i not in p2:
+                            if x == 6:
+                                p2round += 10
+
+                        else:
+                            p2round -= 0
+                            break
         else:
-            p2round -= abs(p2in-p2result)
+            if ('p2' in losers) and (self.p2edit.text()=='0') and over:
+                p2round += 10
+            else:
+                p2round -= abs(p2in-p2result)
 
         if 'call' in p2:
             if 'p2' in winners:
@@ -1280,12 +1368,12 @@ class MainApp(QMainWindow, UI_File):
                 p2round += 23
             else:
                 p2round -= 23
-        if 'with' and 'risk' in p2:
+        if ('with' in p2) and ('risk' in p2):
             if 'p2' in winners:
                 p2round += 30
             else:
                 p2round -= 20
-        elif 'with' and 'd.risk' in p2:
+        elif ('with' in p2) and ('d.risk' in p2):
             if 'p2' in winners:
                 p2round += 40
             else:
@@ -1314,75 +1402,117 @@ class MainApp(QMainWindow, UI_File):
         if 'only lose' in p2:
             p2round -= 10
 
-        if (('p2' in winners) and (0 in p2) and under) or (('p2' in losers) and (0 in p2) and over):
-            p2round += 10
-
         for lopper in [8,9,10,11,12]:
             if lopper in p2:
                 p2round *= 2
 
         # p3 score
         if 'p3' in winners:
-            p3round += p3result
+            print('regular call 3')
+            if ('p3' in winners) and (self.p3edit.text() == '0') and under:
+                print('complex 3')
+                p3round += 10
+            else:
+                if not self.dc13.isChecked():
+                    p3round += p3result
+                    x = 0
+                    for i in bounce:
+                        x += 1
+                        if i not in p3:
+                            print('test regular p3')
+                            if x == 6:
+                                p3round += 10
+                        else:
+                            print('test regularrr p3')
+                            p3round -= 0
+                            break
         else:
-            p3round -= abs(p3in - p3result)
+            if ('p3' in losers) and (self.p3edit.text() == '0') and over:
+                p3round += 10
+                print('regular call 3')
+            else:
+                p3round -= abs(p3in - p3result)
 
         if 'call' in p3:
+            print('call 3')
             if 'p3' in winners:
                 p3round += 20
             else:
                 p3round -= 10
         if 'dash call' in p3:
+            print('dash call 3')
             if 'p3' in winners:
                 p3round += 23
             else:
                 p3round -= 23
-        if 'with' and 'risk' in p3:
+        if ('with' in p3) and ('risk' in p3):
+            print('with risk 3')
             if 'p3' in winners:
                 p3round += 30
             else:
                 p3round -= 20
-        elif 'with' and 'd.risk' in p3:
+        elif ('with' in p3) and ('d.risk' in p3):
+            print('with double risk 3')
             if 'p3' in winners:
                 p3round += 40
             else:
                 p3round -= 30
         else:
             if 'with' in p3:
+                print('with 3')
                 if 'p3' in winners:
                     p3round += 20
                 else:
                     p3round -= 10
 
             if 'risk' in p3:
+                print('risk 3')
                 if 'p3' in winners:
                     p3round += 20
                 else:
                     p3round -= 10
             elif 'd.risk' in p3:
+                print('double risk 3')
                 if 'p3' in winners:
                     p3round += 30
                 else:
                     p3round -= 20
 
         if 'only win' in p3:
+            print('only win 3')
             p3round += 10
 
         if 'only lose' in p3:
+            print('only lose 3')
             p3round -= 10
-
-        if (('p3' in winners) and (0 in p3) and under) or (('p3' in losers) and (0 in p3) and over):
-            p3round += 10
 
         for lopper in [8, 9, 10, 11, 12]:
             if lopper in p3:
+                print('super call 1')
                 p3round *= 2
 
         # p4 score
         if 'p4' in winners:
-            p4round += p4result
+            if ('p4' in winners) and (self.p4edit.text() == '0') and under :
+                p4round += 10
+            else:
+                if not self.dc14.isChecked():
+                    p4round += p4result
+                    x = 0
+                    for i in bounce:
+                        x += 1
+                        if i not in p4:
+                            if x == 6:
+                                p4round += 10
+
+                        else:
+                            p4round -= 0
+                            break
         else:
-            p4round -= abs(p4in - p4result)
+            if ('p4' in losers) and (self.p4edit.text() == '0') and over:
+                p4round += 10
+            else:
+                p4round -= abs(p4in - p4result)
 
         if 'call' in p4:
             if 'p4' in winners:
@@ -1394,12 +1524,12 @@ class MainApp(QMainWindow, UI_File):
                 p4round += 23
             else:
                 p4round -= 23
-        if 'with' and 'risk' in p4:
+        if ('with' in p4) and ('risk' in p4):
             if 'p4' in winners:
                 p4round += 30
             else:
                 p4round -= 20
-        elif 'with' and 'd.risk' in p4:
+        elif ('with' in p4) and ('d.risk' in p4):
             if 'p4' in winners:
                 p4round += 40
             else:
@@ -1428,12 +1558,31 @@ class MainApp(QMainWindow, UI_File):
         if 'only lose' in p4:
             p4round -= 10
 
-        if (('p4' in winners) and (0 in p4) and under) or (('p4' in losers) and (0 in p4) and over):
-            p4round += 10
-
         for lopper in [8, 9, 10, 11, 12]:
             if lopper in p4:
                 p4round *= 2
+
+        if self.multi_yes.isChecked():
+            if self.multi.currentText() == 'x2':
+                p1round *= 2
+                p2round *= 2
+                p3round *= 2
+                p4round *= 2
+            elif self.multi.currentText() == 'x4':
+                p1round *= 4
+                p2round *= 4
+                p3round *= 4
+                p4round *= 4
+            elif self.multi.currentText() == 'x6':
+                p1round *= 6
+                p2round *= 6
+                p3round *= 6
+                p4round *= 6
+            elif self.multi.currentText() == 'x8':
+                p1round *= 8
+                p2round *= 8
+                p3round *= 8
+                p4round *= 8
 
         p1sc += p1round
         p2sc += p2round
@@ -1449,13 +1598,59 @@ class MainApp(QMainWindow, UI_File):
         print('winners',winners)
         print('losers',losers)
         # final step
-        self.multi_no.setChecked(False)
+        r+=1
+        self.lcd.setProperty('value',r)
+        self.multi_no.setChecked(True)
 
     def Yes_bt(self):
         self.multi_yes.setChecked(True)
 
     def No_bt(self):
         self.multi_no.setChecked(True)
+
+    def clear_input(self):
+        self.p1edit.clear()
+        self.p2edit.clear()
+        self.p3edit.clear()
+        self.p4edit.clear()
+
+        self.p1edit.setEnabled(True)
+        self.p2edit.setEnabled(True)
+        self.p3edit.setEnabled(True)
+        self.p4edit.setEnabled(True)
+
+        self.p1with.setEnabled(False)
+        self.p2with.setEnabled(False)
+        self.p3with.setEnabled(False)
+        self.p4with.setEnabled(False)
+
+        self.p1with.setChecked(False)
+        self.p2with.setChecked(False)
+        self.p3with.setChecked(False)
+        self.p4with.setChecked(False)
+
+        self.risk1.setVisible(False)
+        self.risk2.setVisible(False)
+        self.risk3.setVisible(False)
+        self.risk4.setVisible(False)
+
+        self.call1.setVisible(False)
+        self.call2.setVisible(False)
+        self.call3.setVisible(False)
+        self.call4.setVisible(False)
+
+        self.dc1.setEnabled(True)
+        self.dc2.setEnabled(True)
+        self.dc3.setEnabled(True)
+        self.dc4.setEnabled(True)
+
+        self.dc1.setChecked(False)
+        self.dc2.setChecked(False)
+        self.dc3.setChecked(False)
+        self.dc4.setChecked(False)
+
+        self.multi_no.setChecked(True)
+        self.p1edit.setFocus(True)
 
     def clear(self):
         self.p1edit.setEnabled(True)
@@ -1467,8 +1662,6 @@ class MainApp(QMainWindow, UI_File):
         self.p2result.setEnabled(True)
         self.p3result.setEnabled(True)
         self.p4result.setEnabled(True)
-
-        self.p1edit.setFocus(True)
 
         self.p1edit.clear()
         self.p2edit.clear()
@@ -1510,9 +1703,11 @@ class MainApp(QMainWindow, UI_File):
         self.dc3.setChecked(False)
         self.dc4.setChecked(False)
 
-        self.multi_no.setChecked(False)
+        self.multi_no.setChecked(True)
 
         self.call_group.setEnabled(False)
+
+        self.p1edit.setFocus(True)
 
     def reset(self):
         self.p1sc.setText('Score')
@@ -1530,23 +1725,44 @@ class MainApp(QMainWindow, UI_File):
         self.p3edit.setEnabled(True)
         self.p4edit.setEnabled(True)
 
+        self.p1result.setEnabled(True)
+        self.p2result.setEnabled(True)
+        self.p3result.setEnabled(True)
+        self.p4result.setEnabled(True)
+
         self.p1result.clear()
         self.p2result.clear()
         self.p3result.clear()
         self.p4result.clear()
+
         self.p1with.setEnabled(False)
         self.p2with.setEnabled(False)
         self.p3with.setEnabled(False)
         self.p4with.setEnabled(False)
+
         self.p1with.setChecked(False)
         self.p2with.setChecked(False)
         self.p3with.setChecked(False)
         self.p4with.setChecked(False)
+
         self.risk1.setVisible(False)
         self.risk2.setVisible(False)
         self.risk3.setVisible(False)
         self.risk4.setVisible(False)
-        self.multi_no.setChecked(False)
+
+        self.dc1.setEnabled(True)
+        self.dc2.setEnabled(True)
+        self.dc3.setEnabled(True)
+        self.dc4.setEnabled(True)
+
+        self.dc1.setChecked(False)
+        self.dc2.setChecked(False)
+        self.dc3.setChecked(False)
+        self.dc4.setChecked(False)
+
+        self.lcd.setProperty('value', 1)
+        self.multi_no.setChecked(True)
+        self.p1edit.setFocus(True)
 
 
 def risk(p1, p2, p3, p4):

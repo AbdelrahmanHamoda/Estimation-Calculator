@@ -27,7 +27,7 @@
     <property name="geometry">
      <rect>
       <x>480</x>
-      <y>380</y>
+      <y>410</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -40,7 +40,7 @@
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>410</y>
+      <y>460</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -834,13 +834,13 @@
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>350</y>
+      <y>410</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Clear</string>
+     <string>Clear All</string>
     </property>
    </widget>
    <widget class="QLabel" name="call1">
@@ -1204,6 +1204,19 @@
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#ff0000;&quot;&gt;Multiblication&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clear_call">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>360</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clear Call</string>
     </property>
    </widget>
   </widget>
@@ -1570,70 +1583,6 @@
     <hint type="destinationlabel">
      <x>621</x>
      <y>342</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dc1</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p1edit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>123</x>
-     <y>124</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>72</x>
-     <y>123</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dc2</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p2edit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>119</x>
-     <y>289</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>80</x>
-     <y>293</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dc3</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p3edit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>657</x>
-     <y>112</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>614</x>
-     <y>121</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dc4</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>p4edit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>659</x>
-     <y>287</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>622</x>
-     <y>295</y>
     </hint>
    </hints>
   </connection>
